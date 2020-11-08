@@ -3,13 +3,25 @@ import 'package:startup_namer/theme_changer.dart';
 
 // this contains all the code for our settings page
 
+class SavedSettings with ChangeNotifier{
+  bool isDarkModeBool = false;
+  bool isSandyRad = false;
+
+  void isDarkMode() {
+    isDarkModeBool != isDarkModeBool;
+    notifyListeners();
+  }
+}
+
+
+// Creates the settings page
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool isDarkMode = false;
+  bool isDarkModeBool = false;
   bool isSandyRad = false;
 
   // These are the bools for metrics
@@ -39,12 +51,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: [
                         Text ('DarkMode', style: TextStyle(fontSize: (20))),
                         Switch(
-                          value: isDarkMode,
+                          value: isDarkModeBool,
                           onChanged: (value) {
                             ThemeBuilder.of(context).changeTheme();
                             setState(() {
-                              isDarkMode = value;
-                              print(isDarkMode);
+                              isDarkModeBool = value;
+                              print(isDarkModeBool);
                             });
                           },
                           activeTrackColor: Colors.lightGreenAccent,
