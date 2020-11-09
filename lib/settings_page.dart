@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:startup_namer/theme_changer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // this contains all the code for our settings page
-
-class SavedSettings with ChangeNotifier{
-  bool isDarkModeBool = false;
-  bool isSandyRad = false;
-
-  void isDarkMode() {
-    isDarkModeBool != isDarkModeBool;
-    notifyListeners();
-  }
-}
 
 
 // Creates the settings page
@@ -33,6 +24,18 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isStrokeRateAvgOn = true;
 
   @override
+  void initState() {
+    super.initState();
+    getSwitchValues();
+  }
+
+  getSwitchValues() async {
+    isDarkModeBool = await getSwitchState();
+    setState(() {
+
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -56,7 +59,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             ThemeBuilder.of(context).changeTheme();
                             setState(() {
                               isDarkModeBool = value;
-                              print(isDarkModeBool);
                             });
                           },
                           activeTrackColor: Colors.lightGreenAccent,
@@ -183,9 +185,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ],
                 )
-
-
-
-            )));
+            )
+        )
+    );
   }
 }

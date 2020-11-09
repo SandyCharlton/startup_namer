@@ -4,6 +4,8 @@
 
 // Sandy Charlton is using this code as his first foray into Flutter
 
+// TODO: Settings do not change, let's fix that.
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 // import 'packages:provider/provider.dart';
