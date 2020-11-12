@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:startup_namer/theme_changer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +13,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool isDarkModeBool = false;
   bool isSandyRad = false;
 
   // These are the bools for metrics
@@ -24,18 +24,6 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isStrokeRateAvgOn = true;
 
   @override
-  void initState() {
-    super.initState();
-    getSwitchValues();
-  }
-
-  getSwitchValues() async {
-    isDarkModeBool = await getSwitchState();
-    setState(() {
-
-    });
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -51,19 +39,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Row( // This row is for dark mode selection
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text ('DarkMode', style: TextStyle(fontSize: (20))),
-                        Switch(
-                          value: isDarkModeBool,
-                          onChanged: (value) {
-                            ThemeBuilder.of(context).changeTheme();
-                            setState(() {
-                              isDarkModeBool = value;
-                            });
+                      children: <Widget>[
+                        Consumer<ThemeNotifier>(
+                          builder: (context, notifier, child) =>
+                        SwitchListTile(
+                          title: Text("Dark Mode"),
+                          onChanged: (value){
+                            notifier.toggleTheme();
                           },
-                          activeTrackColor: Colors.lightGreenAccent,
-                          activeColor: Colors.green,
-                        )
+                          value: notifier.darkTheme,
+                        ),
+                        ),
+
                       ],
                     ),
                     Row( // This row asks if Sandy is Rad? At the time, it was a test to learn how to add a second button

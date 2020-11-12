@@ -8,7 +8,7 @@
 
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-// import 'packages:provider/provider.dart';
+import 'packages:provider/provider.dart';
 import 'package:startup_namer/theme_changer.dart';
 import 'package:startup_namer/settings_page.dart';
 
@@ -38,31 +38,26 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
-
-  final _suggestions = <WordPair>[
-  ]; // this is used to save the suggested pairings
+  final _suggestions =
+      <WordPair>[]; // this is used to save the suggested pairings
   // final _saved = Set<WordPair>();
   final _biggerFont = TextStyle(fontSize: 18.0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text('Startup Name Generator'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
-              onPressed: (){
-                // go to settings page
-                Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingsPage()));
-              }
-            )
-        ]
-      ),
+      appBar: AppBar(title: Text('Startup Name Generator'), actions: <Widget>[
+        IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // go to settings page
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()));
+            })
+      ]),
       body: _buildSuggestions(),
     );
   }
@@ -70,7 +65,8 @@ class _RandomWordsState extends State<RandomWords> {
   Widget _buildSuggestions() {
     return ListView.builder(
         padding: EdgeInsets.all(16.0),
-        itemBuilder: (context, i) { // this a (infinite) list of items,
+        itemBuilder: (context, i) {
+          // this a (infinite) list of items,
           if (i.isOdd) return Divider();
           final index = i ~/ 2;
           if (index >= _suggestions.length) {
@@ -78,8 +74,7 @@ class _RandomWordsState extends State<RandomWords> {
             _suggestions.addAll(generateWordPairs().take(10));
           }
           return _buildRow(_suggestions[index]);
-        }
-    );
+        });
   }
 
   // This badboy right here is
