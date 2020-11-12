@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:theme_switcher/view/settings_page.dart';
-import 'package:theme_switcher/services/theme_changer.dart';
+import 'package:startup_namer/settings_page.dart';
+import 'package:startup_namer/theme_changer.dart';
+
+
 void main() {
   runApp(MyApp());
 }

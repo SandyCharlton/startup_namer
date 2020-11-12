@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // this class will be used to switch themes at the push of a button.
 // taken from https://www.youtube.com/watch?v=WMvjL6AN9dY
@@ -18,3 +19,18 @@ ThemeData dark = ThemeData(
   primarySwatch: Colors.indigo,
   accentColor: Colors.pink,
 );
+
+class ThemeNotifier extends ChangeNotifier {
+  final String key = "theme";
+  SharedPreferences _pref;
+  bool _darkTheme;
+  bool get darkTheme => _darkTheme;
+  ThemeNotifier() {
+    _darkTheme = true;
+  }
+  toggleTheme() {
+    _darkTheme = !_darkTheme;
+    notifyListeners();
+  }
+
+}
