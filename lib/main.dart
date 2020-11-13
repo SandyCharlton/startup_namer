@@ -8,7 +8,7 @@
 
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'packages:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:startup_namer/theme_changer.dart';
 import 'package:startup_namer/settings_page.dart';
 
@@ -17,17 +17,17 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ThemeBuilder(
-      builder: (context, _brightness) {
-        return MaterialApp(
-          title: 'Startup Name Generator',
-          theme: ThemeData(
-            brightness: _brightness,
-            /* Light theme settings */
-          ),
-          home: RandomWords(),
-        );
-      },
+    return ChangeNotifierProvider(
+      create: (_) => SettingNotifier(),
+        child: Consumer<SettingNotifier>(
+          builder: (context, SettingNotifier notifier, child) {
+            return MaterialApp(
+            title: 'Startup Name Generator',
+            theme: notifier.darkTheme ? dark : light,
+            home: RandomWords(),
+            );
+          }, // builder
+        ),
     );
   }
 }

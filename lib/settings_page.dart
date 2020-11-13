@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:startup_namer/theme_changer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // this contains all the code for our settings page
-
 
 // Creates the settings page
 class SettingsPage extends StatefulWidget {
@@ -13,7 +11,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool isSandyRad = false;
 
   // These are the bools for metrics
   bool isSpeedOn = true;
@@ -40,35 +37,32 @@ class _SettingsPageState extends State<SettingsPage> {
                     Row( // This row is for dark mode selection
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Consumer<ThemeNotifier>(
+                        Text ('Is Dark Mode?', style: TextStyle(fontSize: (20))),
+                        Consumer<SettingNotifier>(
                           builder: (context, notifier, child) =>
-                        SwitchListTile(
-                          title: Text("Dark Mode"),
-                          onChanged: (value){
-                            notifier.toggleTheme();
-                          },
-                          value: notifier.darkTheme,
+                              Switch(
+                                onChanged: (value){
+                                  notifier.toggleTheme();
+                                  },
+                                value: notifier.darkTheme,
+                              ),
                         ),
-                        ),
-
                       ],
                     ),
                     Row( // This row asks if Sandy is Rad? At the time, it was a test to learn how to add a second button
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children:[
+                      children: <Widget>[
                         Text ('Is Sandy Rad?', style: TextStyle(fontSize: (20))),
-                        Switch(
-                          value: isSandyRad,
-                          onChanged: (value) {
-                            setState(() {
-                              isSandyRad = value;
-                              print(isSandyRad);
-                            });
-                          },
-                          activeTrackColor: Colors.lightGreenAccent,
-                          activeColor: Colors.green,
-                        )
-                      ]
+                        Consumer<SettingNotifier>(
+                          builder: (context, notifier, child) =>
+                              Switch(
+                                onChanged: (value){
+                                  notifier.toggleIsSandyRad();
+                                  },
+                                value: notifier.isSandyRad,
+                              ),
+                        ),
+                      ],
                     ),
                     Divider( // divides the app with a thin blue line
                       thickness: 1,
@@ -82,95 +76,95 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children: <Widget>[
                           Text ('Show Speed?', style: TextStyle(fontSize: (20))),
-                          Checkbox(
-                            value: isSpeedOn,
-                            onChanged: (value) {
-                              setState(() {
-                                isSpeedOn = value;
-                                print(isSpeedOn);
-                              });
-                            },
-                          )
-                        ]
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) =>
+                              Checkbox(
+                                onChanged: (value) {
+                                  notifier.toggleIsSpeedOn();
+                                  },
+                                  value: notifier.isSpeedOn,
+                                  ),
+                              ),
+                        ],
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children:<Widget>[
                           Text ('Show Average Speed?', style: TextStyle(fontSize: (20))),
-                          Checkbox(
-                            value: isSpeedAvgOn,
-                            onChanged: (value) {
-                              setState(() {
-                                isSpeedAvgOn = value;
-                                print(isSpeedAvgOn);
-                              });
-                            },
-                          )
-                        ]
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) =>
+                                Checkbox(
+                                  onChanged: (value) {
+                                    notifier.toggleIsSpeedAvgOn();
+                                  },
+                                  value: notifier.isSpeedAvgOn,
+                                ),
+                          ),
+                          ],
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children:<Widget>[
                           Text ('Show Distance?', style: TextStyle(fontSize: (20))),
-                          Checkbox(
-                            value: isDistanceOn,
-                            onChanged: (value) {
-                              setState(() {
-                                isDistanceOn = value;
-                                print(isDistanceOn);
-                              });
-                            },
-                          )
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) =>
+                                Checkbox(
+                                  onChanged: (value) {
+                                    notifier.toggleIsDistanceOn();
+                                  },
+                                  value: notifier.isDistanceOn,
+                                ),
+                          ),
                         ]
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children:<Widget>[
                           Text ('Show Time?', style: TextStyle(fontSize: (20))),
-                          Checkbox(
-                            value: isTimeOn,
-                            onChanged: (value) {
-                              setState(() {
-                                isTimeOn = value;
-                                print(isTimeOn);
-                              });
-                            },
-                          )
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) =>
+                                Checkbox(
+                                  onChanged: (value) {
+                                    notifier.toggleIsTimeOn();
+                                  },
+                                  value: notifier.isTimeOn,
+                                ),
+                          ),
                         ]
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children:<Widget>[
                           Text ('Show Stroke Rate?', style: TextStyle(fontSize: (20))),
-                          Checkbox(
-                            value: isStrokeRateOn,
-                            onChanged: (value) {
-                              setState(() {
-                                isStrokeRateOn = value;
-                                print(isStrokeRateOn);
-                              });
-                            },
-                          )
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) =>
+                                Checkbox(
+                                  onChanged: (value) {
+                                    notifier.toggleIsStrokeRateOn();
+                                  },
+                                  value: notifier.isStrokeRateOn,
+                                ),
+                          ),
                         ]
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children:<Widget>[
                           Text ('Show Average Stroke Rate?', style: TextStyle(fontSize: (20))),
-                          Checkbox(
-                            value: isStrokeRateAvgOn,
-                            onChanged: (value) {
-                              setState(() {
-                                isStrokeRateAvgOn = value;
-                                print(isStrokeRateAvgOn);
-                              });
-                            },
-                          )
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) =>
+                                Checkbox(
+                                  onChanged: (value) {
+                                    notifier.toggleIsStrokeRateAvgOn();
+                                  },
+                                  value: notifier.isStrokeRateAvgOn,
+                                ),
+                          ),
                         ]
                     ),
-                  ],
+                  ]
                 )
             )
         )
