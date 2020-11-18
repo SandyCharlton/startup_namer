@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 // Theme data for the light mode. We can change these colors at a later date
 ThemeData light = ThemeData(
     brightness: Brightness.light,

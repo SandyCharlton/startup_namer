@@ -12,14 +12,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  // These are the bools for metrics
-  bool isSpeedOn = true;
-  bool isSpeedAvgOn = true;
-  bool isDistanceOn = true;
-  bool isTimeOn = true;
-  bool isStrokeRateOn = true;
-  bool isStrokeRateAvgOn = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
